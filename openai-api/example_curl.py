@@ -1,5 +1,6 @@
 #-*- coding: UTF-8 -*-
 
+import yaml
 import json
 import requests
 import os
@@ -12,10 +13,10 @@ output, error = process.communicate()
 git_root = output.decode().strip()
 
 # 通过 curl 请求 openai 示例
-config_path = os.path.join(git_root, "config.json")
+config_path = os.path.join(git_root, "openai-api", "config.yaml")
 config = {}
 with open(config_path,"r") as f:
-    config = json.load(f)
+    config = yaml.safe_load(f)
 
 sk = config["sk"]
 message = config["content"]

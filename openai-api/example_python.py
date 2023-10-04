@@ -1,6 +1,6 @@
 #-*- coding: UTF-8 -*-
 
-import json
+import yaml
 import openai
 import os
 import subprocess
@@ -11,10 +11,10 @@ process = subprocess.Popen(command, stdout=subprocess.PIPE)
 output, error = process.communicate()
 git_root = output.decode().strip()
 
-config_path = os.path.join(git_root, "config.json")
+config_path = os.path.join(git_root, "openai-api", "config.yaml")
 config = {}
 with open(config_path,"r") as f:
-    config = json.load(f)
+    config = yaml.safe_load(f)
 
 openai.api_key = config["sk"]
 message = config["content"]
